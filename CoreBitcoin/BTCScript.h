@@ -123,6 +123,9 @@ typedef NS_ENUM(NSInteger, BTCScriptSimulationOptions) {
 // If the script is something different, returns nil.
 @property(nonatomic, readonly) BTCAddress* standardAddress;
 
+/// 添加测试网地址
+@property(nonatomic, readonly) BTCAddress* standardTestNetAddress;
+
 // Wraps the recipient into an output P2SH script (OP_HASH160 <20-byte hash of the recipient> OP_EQUAL).
 @property(nonatomic, readonly) BTCScript* scriptHashScript;
 
