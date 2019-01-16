@@ -79,13 +79,15 @@ enum
     BTCAddress* address = [cls addressWithComposedData:composedData cstring:cstring version:version];
     if (!address) {
         NSLog(@"BTCAddress: unknown address version: %d", version);
+        return nil;
     }
 
     // Verify that address is compatible with the class being invoked.
     // So if someone asked to parse P2PKH address with P2SH string, they will get nil instead of P2SH instance.
-    if (![address isKindOfClass:self]) {
-        return nil;
-    }
+    // p2sh 地址
+//    if (![address isKindOfClass:self]) {
+//        return nil;
+//    }
 
     // Securely erase decoded address data
     BTCDataClear(composedData);
