@@ -584,9 +584,19 @@ static int     ECDSA_SIG_recover_key_GFp(EC_KEY *eckey, ECDSA_SIG *ecsig, const 
 }
 
 
+- (BTCScriptHashAddress*) scriptHashKeyAddress {
+    CHECK_IF_CLEARED;
+    NSData* pubkey = [self compressedPublicKey];
+    if (pubkey.length == 0) return nil;
+    return [BTCScriptHashAddress addressWithData:BTCHash160(pubkey)];
+}
 
-
-
+- (BTCScriptHashAddressTestnet*) scriptHashKeyTestnetAddress {
+    CHECK_IF_CLEARED;
+    NSData* pubkey = [self compressedPublicKey];
+    if (pubkey.length == 0) return nil;
+    return [BTCScriptHashAddressTestnet addressWithData:BTCHash160(pubkey)];
+}
 
 
 #pragma mark - Compact Signature

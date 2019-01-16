@@ -109,7 +109,9 @@
 @property(nonatomic, readonly) BTCPrivateKeyAddressTestnet* privateKeyAddressTestnet;
 
 
-
+// p2sh 地址 yl 2019年01月16日
+@property(nonatomic, readonly) BTCPrivateKeyAddress* scriptHashKeyAddress;
+@property(nonatomic, readonly) BTCPrivateKeyAddressTestnet* scriptHashKeyTestnetAddress;
 
 
 // Compact Signature
