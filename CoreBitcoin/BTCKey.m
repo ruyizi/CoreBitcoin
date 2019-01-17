@@ -588,14 +588,33 @@ static int     ECDSA_SIG_recover_key_GFp(EC_KEY *eckey, ECDSA_SIG *ecsig, const 
     CHECK_IF_CLEARED;
     NSData* pubkey = [self compressedPublicKey];
     if (pubkey.length == 0) return nil;
-    return [BTCScriptHashAddress addressWithData:BTCHash160(pubkey)];
+    
+    NSData *hashData = BTCHash160(pubkey);
+    
+    NSMutableData* data = [NSMutableData dataWithLength:2 + hashData.length];
+    char* buf = data.mutableBytes;
+    buf[0] = 00;
+    buf[1] = 14;
+    memcpy(buf + 2, pubkey.bytes, 2 + pubkey.length);
+    return [BTCScriptHashAddress addressWithData:BTCHash160(data)];
 }
 
 - (BTCScriptHashAddressTestnet*) scriptHashKeyTestnetAddress {
     CHECK_IF_CLEARED;
     NSData* pubkey = [self compressedPublicKey];
     if (pubkey.length == 0) return nil;
-    return [BTCScriptHashAddressTestnet addressWithData:BTCHash160(pubkey)];
+    
+    NSData *hashData = BTCHash160(pubkey);
+    
+    NSInteger lenght = 2 + hashData.length;
+    
+    NSMutableData* data = [NSMutableData dataWithLength:lenght];
+    char* buf = data.mutableBytes;
+    buf[0] = 00;
+    buf[1] = 14;
+    memcpy(buf + 2, pubkey.bytes, lenght);
+    
+    return [BTCScriptHashAddressTestnet addressWithData:BTCHash160(data)];
 }
 
 
