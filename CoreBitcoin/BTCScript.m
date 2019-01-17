@@ -583,27 +583,6 @@
     return nil;
 }
 
--(BTCAddress *)standardTestNetAddress{
-    if ([self isPayToPublicKeyHashScript]) {
-        if (_chunks.count != 5) return nil;
-        
-        BTCScriptChunk* dataChunk = [self chunkAtIndex:2];
-        
-        if (!dataChunk.isOpcode && dataChunk.range.length == 21) {
-            return [BTCPublicKeyAddressTestnet addressWithData:dataChunk.pushdata];
-        }
-    } else if ([self isPayToScriptHashScript]) {
-        if (_chunks.count != 3) return nil;
-        
-        BTCScriptChunk* dataChunk = [self chunkAtIndex:1];
-        
-        if (!dataChunk.isOpcode && dataChunk.range.length == 21) {
-            return [BTCScriptHashAddressTestnet addressWithData:dataChunk.pushdata];
-        }
-    }
-    return nil;
-}
-
 
 // Wraps the recipient into an output P2SH script (OP_HASH160 <20-byte hash of the recipient> OP_EQUAL).
 - (BTCScript*) scriptHashScript {
